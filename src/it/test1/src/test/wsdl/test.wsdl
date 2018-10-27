@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  wsimport-maven-plugin
+  %%
+  Copyright (C) 2018 Andreas Veithen
+  %%
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  
+       http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  #L%
+  -->
+
+<wsdl:definitions
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:tns="http://example.org"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    name="dummy"
+    targetNamespace="http://example.org">
+
+    <wsdl:types>
+        <xsd:schema
+            targetNamespace="http://example.org"
+            xmlns:tns="http://example.org"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+            <xsd:element name="DummyRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="input" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="DummyResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="output" type="xsd:string" />
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+
+    <wsdl:message name="DummyRequest">
+        <wsdl:part name="body" element="tns:DummyRequest" />
+    </wsdl:message>
+
+    <wsdl:message name="DummyResponse">
+        <wsdl:part name="body" element="tns:DummyResponse" />
+    </wsdl:message>
+
+    <wsdl:portType name="DummyPortType">
+        <wsdl:operation name="dummy">
+            <wsdl:input message="tns:DummyRequest" />
+            <wsdl:output message="tns:DummyResponse" />
+        </wsdl:operation>
+    </wsdl:portType>
+
+    <wsdl:binding name="DummyBinding" type="tns:DummyPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+        <wsdl:operation name="dummy">
+            <soap:operation soapAction="http://example.org/dummy" />
+            <wsdl:input>
+                <soap:body use="literal" />
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    <wsdl:service name="DummyService">
+        <wsdl:port binding="tns:DummyBinding" name="DummyPort">
+            <soap:address location="http://localhost:8080/DummyService" />
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>
