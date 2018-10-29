@@ -21,7 +21,11 @@ package com.github.veithen.maven.wsimport;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
+import org.apache.maven.model.Resource;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -69,8 +73,30 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
             options.addWSDL(wsdlFile);
         }
         if (generateService) {
-            // TODO: this is only suitable for test sources
-            options.wsdlLocation = wsdlFiles[0].toURI().toString();
+            File wsdlFile = wsdlFiles[0];
+            String wsdlLocation = null;
+            outer: for (Resource resource : getResources(project)) {
+                File resourceDir = new File(resource.getDirectory());
+                Deque<String> resourceComponents = new LinkedList<>();
+                File file = wsdlFile;
+                while (true) {
+                    resourceComponents.addFirst(file.getName());
+                    file = file.getParentFile();
+                    if (file == null) {
+                        break;
+                    }
+                    if (file.equals(resourceDir)) {
+                        wsdlLocation = "/" + String.join("/", resourceComponents);
+                        break outer;
+                    }
+                }
+            }
+            if (wsdlLocation == null) {
+                // TODO: this is only suitable for test sources
+                wsdlLocation = wsdlFiles[0].toURI().toString();
+            }
+            log.info("Using wsdlLocation = " + wsdlLocation);
+            options.wsdlLocation = wsdlLocation;
         }
         options.sourceDir = outputDirectory;
         ErrorReceiver errorReceiver = new ErrorReceiver() {
@@ -124,6 +150,7 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
         addSourceRoot(project, outputDirectory.getAbsolutePath());
     }
 
+    protected abstract List<Resource> getResources(MavenProject project);
     protected abstract File getOutputDirectory();
     protected abstract void addSourceRoot(MavenProject project, String path);
 }

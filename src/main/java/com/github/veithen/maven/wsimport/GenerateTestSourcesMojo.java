@@ -20,7 +20,10 @@
 package com.github.veithen.maven.wsimport;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.maven.model.Resource;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
@@ -30,6 +33,14 @@ import org.apache.maven.project.MavenProject;
 public class GenerateTestSourcesMojo extends AbstractGenerateMojo {
     @Parameter(required=true, defaultValue="${project.build.directory}/generated-test-sources/wsimport")
     private File outputDirectory;
+
+    @Override
+    protected List<Resource> getResources(MavenProject project) {
+        List<Resource> resources = new ArrayList<>();
+        resources.addAll(project.getResources());
+        resources.addAll(project.getTestResources());
+        return resources;
+    }
 
     @Override
     protected File getOutputDirectory() {
