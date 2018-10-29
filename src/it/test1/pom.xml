@@ -57,6 +57,7 @@
                                 <wsdlFile>src/test/wsdl/test.wsdl</wsdlFile>
                             </wsdlFiles>
                             <packageName>test</packageName>
+                            <generateService>true</generateService>
                         </configuration>
                     </execution>
                 </executions>

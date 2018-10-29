@@ -57,6 +57,9 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
     @Parameter(required=true, defaultValue="${project.build.sourceEncoding}")
     private String outputEncoding;
 
+    @Parameter
+    private boolean generateService;
+
     public final void execute() throws MojoExecutionException, MojoFailureException {
         final Log log = getLog();
         File outputDirectory = getOutputDirectory();
@@ -65,9 +68,10 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
         for (File wsdlFile : wsdlFiles) {
             options.addWSDL(wsdlFile);
         }
-        // TODO: this is only suitable for test sources
-        // TODO: make generating the service class optional and skip this is no serivce is generated
-        options.wsdlLocation = wsdlFiles[0].toURI().toString();
+        if (generateService) {
+            // TODO: this is only suitable for test sources
+            options.wsdlLocation = wsdlFiles[0].toURI().toString();
+        }
         options.sourceDir = outputDirectory;
         ErrorReceiver errorReceiver = new ErrorReceiver() {
             @Override
@@ -107,7 +111,9 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
             throw new MojoExecutionException("Code generation failed");
         }
         SeiGenerator.generate(wsdlModel, options, errorReceiver);
-        ServiceGenerator.generate(wsdlModel, options, errorReceiver);
+        if (generateService) {
+            ServiceGenerator.generate(wsdlModel, options, errorReceiver);
+        }
         outputDirectory.mkdirs();
         try {
             CodeWriter codeWriter = new FileCodeWriter(outputDirectory, outputEncoding);
