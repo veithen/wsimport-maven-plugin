@@ -64,6 +64,9 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
     @Parameter
     private boolean generateService;
 
+    @Parameter
+    private boolean extension;
+
     public final void execute() throws MojoExecutionException, MojoFailureException {
         final Log log = getLog();
         File outputDirectory = getOutputDirectory();
@@ -99,6 +102,9 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
             options.wsdlLocation = wsdlLocation;
         }
         options.sourceDir = outputDirectory;
+        if (extension) {
+            options.compatibilityMode = WsimportOptions.EXTENSION;
+        }
         ErrorReceiver errorReceiver = new ErrorReceiver() {
             @Override
             public void fatalError(SAXParseException exception) {
