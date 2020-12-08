@@ -7,3 +7,15 @@ updates:
     ignore:
       - dependency-name: "com.sun.xml.ws:jaxws-tools"
         versions: ">= 3.0"
+  - package-ecosystem: "maven"
+    directory: "/src/it/extension"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "maven"
+    directory: "/src/it/test1"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "maven"
+    directory: "/src/it/wsdlLocation"
+    schedule:
+      interval: "daily"
