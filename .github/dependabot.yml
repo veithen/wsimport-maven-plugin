@@ -4,3 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      - dependency-name: "com.sun.xml.ws:jaxws-tools"
+        versions: ">= 3.0"
