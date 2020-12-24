@@ -7,9 +7,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -46,26 +46,21 @@ import com.sun.tools.ws.wsdl.parser.MetadataFinder;
 import com.sun.tools.ws.wsdl.parser.WSDLInternalizationLogic;
 
 public abstract class AbstractGenerateMojo extends AbstractMojo {
-    @Parameter(property="project", readonly=true, required=true)
+    @Parameter(property = "project", readonly = true, required = true)
     private MavenProject project;
 
-    @Parameter(required=true)
+    @Parameter(required = true)
     private File[] wsdlFiles;
 
-    /**
-     * Corresponds to the {@code -p} option.
-     */
-    @Parameter
-    private String packageName;
+    /** Corresponds to the {@code -p} option. */
+    @Parameter private String packageName;
 
-    @Parameter(required=true, defaultValue="${project.build.sourceEncoding}")
+    @Parameter(required = true, defaultValue = "${project.build.sourceEncoding}")
     private String outputEncoding;
 
-    @Parameter
-    private boolean generateService;
+    @Parameter private boolean generateService;
 
-    @Parameter
-    private boolean extension;
+    @Parameter private boolean extension;
 
     public final void execute() throws MojoExecutionException, MojoFailureException {
         final Log log = getLog();
@@ -78,7 +73,8 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
         if (generateService) {
             File wsdlFile = wsdlFiles[0];
             String wsdlLocation = null;
-            outer: for (Resource resource : getResources(project)) {
+            outer:
+            for (Resource resource : getResources(project)) {
                 File resourceDir = new File(resource.getDirectory());
                 Deque<String> resourceComponents = new LinkedList<>();
                 File file = wsdlFile;
@@ -105,37 +101,39 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
         if (extension) {
             options.compatibilityMode = WsimportOptions.EXTENSION;
         }
-        ErrorReceiver errorReceiver = new ErrorReceiver() {
-            @Override
-            public void fatalError(SAXParseException exception) {
-                log.error(exception.getMessage());
-                log.debug(exception);
-            }
-            
-            @Override
-            public void error(SAXParseException exception) {
-                log.error(exception.getMessage());
-                log.debug(exception);
-            }
-            
-            @Override
-            public void warning(SAXParseException exception) {
-                log.warn(exception.getMessage());
-                log.debug(exception);
-            }
-            
-            @Override
-            public void info(SAXParseException exception) {
-                log.info(exception.getMessage());
-                log.debug(exception);
-            }
+        ErrorReceiver errorReceiver =
+                new ErrorReceiver() {
+                    @Override
+                    public void fatalError(SAXParseException exception) {
+                        log.error(exception.getMessage());
+                        log.debug(exception);
+                    }
 
-            @Override
-            public void debug(SAXParseException exception) {
-                log.debug(exception);
-            }
-        };
-        MetadataFinder forest = new MetadataFinder(new WSDLInternalizationLogic(), options, errorReceiver);
+                    @Override
+                    public void error(SAXParseException exception) {
+                        log.error(exception.getMessage());
+                        log.debug(exception);
+                    }
+
+                    @Override
+                    public void warning(SAXParseException exception) {
+                        log.warn(exception.getMessage());
+                        log.debug(exception);
+                    }
+
+                    @Override
+                    public void info(SAXParseException exception) {
+                        log.info(exception.getMessage());
+                        log.debug(exception);
+                    }
+
+                    @Override
+                    public void debug(SAXParseException exception) {
+                        log.debug(exception);
+                    }
+                };
+        MetadataFinder forest =
+                new MetadataFinder(new WSDLInternalizationLogic(), options, errorReceiver);
         forest.parseWSDL();
         WSDLModeler wsdlModeler = new WSDLModeler(options, errorReceiver, forest);
         Model wsdlModel = wsdlModeler.buildModel();
@@ -157,6 +155,8 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
     }
 
     protected abstract List<Resource> getResources(MavenProject project);
+
     protected abstract File getOutputDirectory();
+
     protected abstract void addSourceRoot(MavenProject project, String path);
 }
