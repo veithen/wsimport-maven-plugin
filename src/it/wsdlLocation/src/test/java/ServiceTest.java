@@ -17,11 +17,11 @@
  * limitations under the License.
  * #L%
  */
-import static org.junit.Assert.assertEquals;
+import static com.google.common.truth.Truth.assertThat;
 
 import java.lang.reflect.Field;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import test.DummyService;
 
@@ -30,6 +30,6 @@ public class ServiceTest {
     public void test() throws Exception {
         Field field = DummyService.class.getDeclaredField("DUMMYSERVICE_WSDL_LOCATION");
         field.setAccessible(true);
-        assertEquals(ServiceTest.class.getResource("/META-INF/test.wsdl"), field.get(null));
+        assertThat(field.get(null)).isEqualTo(ServiceTest.class.getResource("/META-INF/test.wsdl"));
     }
 }

@@ -19,7 +19,7 @@
  */
 import javax.xml.ws.BindingProvider;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import test.DummyPortType;
 import test.DummyService;
