@@ -62,6 +62,7 @@ public abstract class AbstractGenerateMojo extends AbstractMojo {
 
     @Parameter private boolean extension;
 
+    @Override
     public final void execute() throws MojoExecutionException, MojoFailureException {
         final Log log = getLog();
         File outputDirectory = getOutputDirectory();
