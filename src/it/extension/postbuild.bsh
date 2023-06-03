@@ -18,7 +18,6 @@
  * #L%
  */
 import java.io.*;
-import com.google.common.truth.*;
 
-Truth.assertThat(new File(basedir, "target/generated-sources/wsimport/org/example/ImageService.java").exists()).isTrue();
-Truth.assertThat(new File(basedir, "target/generated-sources/wsimport/org/example/ImageServicePort.java").exists()).isTrue();
+return new File(basedir, "target/generated-sources/wsimport/org/example/ImageService.java").exists()
+    && new File(basedir, "target/generated-sources/wsimport/org/example/ImageServicePort.java").exists();

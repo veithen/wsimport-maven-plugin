@@ -79,12 +79,6 @@
             <artifactId>jaxws-tools</artifactId>
             <version>2.3.5</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.truth</groupId>
-            <artifactId>truth</artifactId>
-            <version>1.1.3</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <repositories>
@@ -125,8 +119,6 @@
                                 <goal>clean</goal>
                                 <goal>verify</goal>
                             </goals>
-                            <!-- We want to use Google Truth in verification scripts -->
-                            <addTestClassPath>true</addTestClassPath>
                         </configuration>
                     </execution>
                 </executions>
