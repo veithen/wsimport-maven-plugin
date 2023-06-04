@@ -4,9 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-    ignore:
-      - dependency-name: "com.sun.xml.ws:jaxws-tools"
-        versions: ">= 3.0"
   - package-ecosystem: "maven"
     directory: "/src/it/extension"
     schedule:
@@ -15,16 +12,10 @@ updates:
     directory: "/src/it/test1"
     schedule:
       interval: "daily"
-    ignore:
-      - dependency-name: "com.sun.xml.ws:jaxws-rt"
-        versions: ">= 3.0"
   - package-ecosystem: "maven"
     directory: "/src/it/wsdlLocation"
     schedule:
       interval: "daily"
-    ignore:
-      - dependency-name: "com.sun.xml.ws:jaxws-rt"
-        versions: ">= 3.0"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:

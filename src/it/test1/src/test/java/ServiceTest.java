@@ -17,7 +17,7 @@
  * limitations under the License.
  * #L%
  */
-import javax.xml.ws.BindingProvider;
+import jakarta.xml.ws.BindingProvider;
 
 import org.junit.jupiter.api.Test;
 
