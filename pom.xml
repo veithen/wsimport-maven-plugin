@@ -29,7 +29,7 @@
 
     <groupId>com.github.veithen.maven</groupId>
     <artifactId>wsimport-maven-plugin</artifactId>
-    <version>0.3.0</version>
+    <version>0.3.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <url>http://veithen.github.io/wsimport-maven-plugin/</url>
@@ -52,7 +52,7 @@
     <properties>
         <github.repository>wsimport-maven-plugin</github.repository>
         <javaVersion>11</javaVersion>
-        <project.build.outputTimestamp>2023-06-09T07:59:47Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2023-06-09T08:01:12Z</project.build.outputTimestamp>
         <maven.version>3.9.2</maven.version>
     </properties>
 
