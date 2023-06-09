@@ -29,7 +29,7 @@
 
     <groupId>com.github.veithen.maven</groupId>
     <artifactId>wsimport-maven-plugin</artifactId>
-    <version>0.3.0-SNAPSHOT</version>
+    <version>0.3.0</version>
     <packaging>maven-plugin</packaging>
 
     <url>http://veithen.github.io/wsimport-maven-plugin/</url>
@@ -46,13 +46,13 @@
         <url>https://github.com/veithen/wsimport-maven-plugin/tree/master</url>
         <connection>scm:git:http://github.com/veithen/wsimport-maven-plugin.git</connection>
         <developerConnection>scm:git:https://github.com/veithen/wsimport-maven-plugin.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>0.3.0</tag>
     </scm>
 
     <properties>
         <github.repository>wsimport-maven-plugin</github.repository>
         <javaVersion>11</javaVersion>
-        <project.build.outputTimestamp>2022-01-23T12:03:00Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2023-06-09T07:59:47Z</project.build.outputTimestamp>
         <maven.version>3.9.2</maven.version>
     </properties>
 
