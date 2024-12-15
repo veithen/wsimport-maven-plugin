@@ -128,7 +128,6 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <configuration>
                     <projectName>wsimport-maven-plugin</projectName>
-                    <licenseName>apache_v2</licenseName>
                     <extraExtensions>
                         <wsdl>xml</wsdl>
                     </extraExtensions>
